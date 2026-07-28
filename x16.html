@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Online - URBY X16 1000W</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            background-color: #0d0d0e; 
+            color: #f1f5f9; 
+            padding: 20px 10px; 
+        }
+        .checkout-container { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            background: #16161a; 
+            padding: 30px 25px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); 
+            border: 1px solid #282830;
+        }
+        
+        .brand-header {
+            text-align: center;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #282830;
+        }
+        .brand-logo-svg {
+            width: 200px;
+            height: auto;
+            display: block;
+            margin: 0 auto 5px auto;
+        }
+        .brand-subtitle {
+            color: #a0a0ab;
+            font-size: 11pt;
+            letter-spacing: 0.5px;
+            margin-top: 5px;
+        }
+
+        .section-title { 
+            font-size: 10pt; 
+            font-weight: 700; 
+            color: #E67A2A; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            margin-top: 25px; 
+            margin-bottom: 12px; 
+            border-bottom: 1px solid #25252e; 
+            padding-bottom: 6px; 
+        }
+        .form-group { margin-bottom: 14px; }
+        .form-group label { 
+            display: block; 
+            font-size: 8.5pt; 
+            font-weight: 600; 
+            margin-bottom: 6px; 
+            color: #cbd5e1; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .form-group input, .form-group select { 
+            width: 100%; 
+            padding: 12px 14px; 
+            background-color: #212127;
+            border: 1px solid #33333e; 
+            border-radius: 8px; 
+            font-size: 10pt; 
+            color: #fff;
+            outline: none;
+            transition: border 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: #E67A2A;
+        }
+        .form-row { display: flex; gap: 12px; }
+        .form-row .form-group { flex: 1; }
+
+        .product-card { 
+            background: #212127; 
+            border: 1px solid #33333e; 
+            border-radius: 12px; 
+            padding: 16px; 
+            margin-bottom: 15px; 
+        }
+        .product-gallery {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .main-photo-container {
+            width: 100%;
+            height: 380px;
+            border-radius: 10px;
+            border: 1px solid #33333e;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .main-photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .thumbs-grid {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+        .thumb-item {
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid #33333e;
+            overflow: hidden;
+            background: #18181c;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .thumb-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+        }
+        .thumb-item:hover img, .thumb-item.active img {
+            opacity: 1;
+        }
+        .thumb-item:hover, .thumb-item.active {
+            border-color: #E67A2A;
+            transform: scale(1.05);
+        }
+        .thumb-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            font-size: 6.5pt;
+            font-weight: bold;
+            text-align: center;
+            padding: 2px 0;
+        }
+
+        .product-title { 
+            font-weight: 700; 
+            color: #fff; 
+            font-size: 13pt; 
+            margin-top: 10px;
+        }
+        .price-container {
+            margin-top: 6px;
+            margin-bottom: 12px;
+        }
+        .old-price {
+            text-decoration: line-through;
+            color: #71717a;
+            font-size: 10pt;
+            margin-right: 8px;
+        }
+        .price { 
+            color: #E67A2A; 
+            font-weight: 800; 
+            font-size: 15pt; 
+        }
+
+        .specs-list {
+            background: #18181c;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 8.5pt;
+            color: #a1a1aa;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+        .specs-list ul { list-style: none; }
+        .specs-list li { margin-bottom: 4px; }
+
+        #installmentContainer {
+            display: none;
+            background: #1a1a20;
+            border: 1px solid #E67A2A;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 10px;
+        }
+
+        .file-upload-box {
+            background-color: #212127;
+            border: 1px dashed #E67A2A;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .file-upload-box input[type="file"] {
+            border: none;
+            background: transparent;
+            padding: 5px;
+        }
+
+        .terms { 
+            font-size: 8pt; 
+            color: #94a3b8; 
+            background: #1c1c22; 
+            padding: 12px; 
+            border-radius: 8px; 
+            margin-top: 20px; 
+            line-height: 1.4;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .terms input { margin-top: 2px; }
+
+        .btn-submit { 
+            width: 100%; 
+            background: #E67A2A; 
+            color: #fff; 
+            border: none; 
+            padding: 16px; 
+            border-radius: 8px; 
+            font-size: 11pt; 
+            font-weight: 800; 
+            cursor: pointer; 
+            margin-top: 20px; 
+            text-align: center; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background 0.2s;
+        }
+        .btn-submit:hover { background: #d46b1f; }
+        .btn-submit:disabled { background: #555; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+
+    <div class="checkout-container">
+        <div class="brand-header">
+            <svg class="brand-logo-svg" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(10, 20)">
+                    <path d="M 30,20 L 30,80 A 30,30 0 0,0 90,80 L 90,20" fill="none" stroke="#FFFFFF" stroke-width="22" stroke-linecap="square" stroke-linejoin="round"/>
+                    <path d="M 125,100 L 125,20 L 170,20 A 25,25 0 0,1 170,70 L 125,70 M 160,70 L 185,100" fill="none" stroke="#FFFFFF" stroke-width="22" stroke-linecap="square" stroke-linejoin="round"/>
+                    <path d="M 220,20 L 220,100 L 260,100 A 20,20 0 0,0 260,60 L 220,60 L 255,60 A 20,20 0 0,0 255,20 Z" fill="none" stroke="#FFFFFF" stroke-width="22" stroke-linecap="square" stroke-linejoin="round"/>
+                    <path d="M 315,20 L 345,65 L 375,20 M 345,65 L 345,100 A 20,20 0 0,1 325,120 L 310,120" fill="none" stroke="#E67A2A" stroke-width="22" stroke-linecap="square" stroke-linejoin="round"/>
+                </g>
+                <text x="250" y="175" font-family="'Segoe UI', Arial, sans-serif" font-size="28" font-weight="600" fill="#FFFFFF" letter-spacing="7" text-anchor="middle">MOBILIDADE URBANA</text>
+            </svg>
+            <div class="brand-subtitle">Checkout Oficial - URBY X16 1000W 🛵</div>
+        </div>
+
+        <form id="checkoutForm">
+            <div class="section-title">1. Dados do Comprador 👤</div>
+            <div class="form-group">
+                <label>Nome Completo *</label>
+                <input type="text" id="nome" required placeholder="Digite seu nome completo">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>CPF *</label>
+                    <input type="text" id="cpf" required placeholder="000.000.000-00">
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp / Telefone *</label>
+                    <input type="text" id="whatsapp" required placeholder="(00) 00000-0000">
+                </div>
+            </div>
+
+            <div class="section-title">2. Endereço de Entrega 📍</div>
+            <div class="form-row">
+                <div class="form-group" style="flex: 2;">
+                    <label>CEP *</label>
+                    <input type="text" id="cep" required placeholder="00000-000">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label>UF *</label>
+                    <input type="text" id="uf" required placeholder="SC">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Rua / Avenida e Número *</label>
+                <input type="text" id="endereco" required placeholder="Ex: Av. Brasil, 500">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Bairro *</label>
+                    <input type="text" id="bairro" required placeholder="Bairro">
+                </div>
+                <div class="form-group">
+                    <label>Cidade *</label>
+                    <input type="text" id="cidade" required placeholder="Cidade">
+                </div>
+            </div>
+
+            <div class="section-title">3. Seleção do Veículo 🛵</div>
+            <div class="product-card">
+                <div class="product-gallery">
+                    <div class="main-photo-container">
+                        <img id="mainPhotoImg" src="x16-preta.jpeg" onerror="this.src='x16-preta.jpg'" alt="URBY X16 1000W">
+                    </div>
+
+                    <div class="thumbs-grid">
+                        <div class="thumb-item active" id="thumb-Preta" onclick="selectColor('Preta')">
+                            <img src="x16-preta.jpeg" onerror="this.src='x16-preta.jpg'" alt="Preta">
+                            <div class="thumb-label">Preta</div>
+                        </div>
+                        <div class="thumb-item" id="thumb-OffWhite" onclick="selectColor('Off White / Creme')">
+                            <img src="x16-offwhite.jpeg" onerror="this.src='x16-offwhite.jpg'" alt="Off White">
+                            <div class="thumb-label">Off White</div>
+                        </div>
+                        <div class="thumb-item" id="thumb-Verde" onclick="selectColor('Verde')">
+                            <img src="x16-verde.jpeg" onerror="this.src='x16-verde.jpg'" alt="Verde">
+                            <div class="thumb-label">Verde</div>
+                        </div>
+                        <div class="thumb-item" id="thumb-Vermelha" onclick="selectColor('Vermelha')">
+                            <img src="x16-vermelha.jpeg" onerror="this.src='x16-vermelha.jpg'" alt="Vermelha">
+                            <div class="thumb-label">Vermelha</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-title">Scooter Elétrica URBY X16 (1000W)</div>
+                <div class="price-container">
+                    <span class="old-price">R$ 8.990,00</span>
+                    <span class="price">R$ 7.990,00</span>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <label style="font-size: 8.5pt; font-weight: 600; color: #cbd5e1; display: block; margin-bottom: 4px;">SELECIONE A COR DESEJADA: 🎨</label>
+                    <select id="cor" onchange="onCorSelectChange(this.value)">
+                        <option value="Preta">Preta 🖤</option>
+                        <option value="Off White / Creme">Off White / Creme 🤍</option>
+                        <option value="Verde">Verde 💚</option>
+                        <option value="Vermelha">Vermelha ❤️</option>
+                    </select>
+                </div>
+
+                <div class="specs-list">
+                    <ul>
+                        <li>⚡ <b>Potência do Motor:</b> 1000W Autopropelido</li>
+                        <li>🔋 <b>Bateria:</b> Lítio LiFePO4 (60V / 20Ah) - Removível</li>
+                        <li>🛣️ <b>Autonomia:</b> Até 60 km</li>
+                        <li>🚀 <b>Velocidade Máxima:</b> 32 km/h</li>
+                        <li>⚖️ <b>Carga Máxima:</b> 150 kg</li>
+                        <li>📲 <b>Diferenciais:</b> Caixa de Som Bluetooth, Cartão NFC (Liga por aproximação), Alarme e Marcha à Ré.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section-title">4. Forma de Pagamento 💳</div>
+            <div class="form-group">
+                <select id="pagamento" onchange="toggleParcelas(this.value)">
+                    <option value="PIX / À Vista (10% OFF - R$ 7.191,00)">PIX / À Vista (10% OFF - R$ 7.191,00) ⚡</option>
+                    <option value="Cartao de Credito">Cartão de Crédito (de 1x até 24x s/ Juros) 💳</option>
+                    <option value="Entrada PIX + Cartão de Crédito">Entrada via PIX + Saldo no Cartão 🔄</option>
+                </select>
+            </div>
+
+            <div id="installmentContainer" class="form-group">
+                <label style="color: #E67A2A;">Escolha o número de parcelas (Sem Juros): 🔢</label>
+                <select id="opcaoParcela"></select>
+            </div>
+
+            <div class="section-title">5. Validação de Segurança 🔒</div>
+            <div class="file-upload-box">
+                <label style="font-size: 8.5pt; font-weight: 600; color: #cbd5e1; display: block; margin-bottom: 8px;">
+                    ANEXAR FOTO DO DOCUMENTO (RG OU CNH) 📄 *
+                </label>
+                <p style="font-size: 8pt; color: #a0a0ab; margin-bottom: 10px;">
+                    Pelo celular, toque abaixo para <b>Tirar Foto</b> ou anexar arquivo. 📸
+                </p>
+                <input type="file" id="fotoDocumento" accept="image/*" capture="environment" required>
+            </div>
+
+            <div class="terms">
+                <input type="checkbox" id="terms-check" required>
+                <label for="terms-check">
+                    Declaro que li e concordo com os termos. Atesto ciência de que a Scooter X16 (1000W) é enquadrada como veículo autopropelido conforme Resolução CONTRAN (isenta de CNH e emplacamento). ✅
+                </label>
+            </div>
+
+            <button type="submit" id="btnSubmit" class="btn-submit">FINALIZAR PEDIDO VIA WHATSAPP 📲</button>
+        </form>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxlXx-sOudu76jX9ycZhyrEScOWWkrhaMgbDNcYI42UL_dK9nPwnkC6SwsxZWq96JXeXw/exec';
+        const VALOR_TOTAL = 7990.00;
+
+        const imagesMap = {
+            'Preta': 'x16-preta.jpeg',
+            'Off White / Creme': 'x16-offwhite.jpeg',
+            'Verde': 'x16-verde.jpeg',
+            'Vermelha': 'x16-vermelha.jpeg'
+        };
+
+        function selectColor(colorName) {
+            document.getElementById('cor').value = colorName;
+            const mainImg = document.getElementById('mainPhotoImg');
+            
+            mainImg.src = imagesMap[colorName];
+            mainImg.onerror = function() {
+                this.src = imagesMap[colorName].replace('.jpeg', '.jpg');
+            };
+            
+            document.querySelectorAll('.thumb-item').forEach(el => el.classList.remove('active'));
+            if (colorName === 'Preta') document.getElementById('thumb-Preta').classList.add('active');
+            if (colorName === 'Off White / Creme') document.getElementById('thumb-OffWhite').classList.add('active');
+            if (colorName === 'Verde') document.getElementById('thumb-Verde').classList.add('active');
+            if (colorName === 'Vermelha') document.getElementById('thumb-Vermelha').classList.add('active');
+        }
+
+        function onCorSelectChange(colorName) {
+            selectColor(colorName);
+        }
+
+        function populateInstallments() {
+            const select = document.getElementById('opcaoParcela');
+            select.innerHTML = '';
+            for (let i = 1; i <= 24; i++) {
+                const valorParcela = (VALOR_TOTAL / i).toFixed(2).replace('.', ',');
+                const option = document.createElement('option');
+                option.value = `${i}x de R$ ${valorParcela} s/juros`;
+                option.text = `${i}x de R$ ${valorParcela} s/juros (Total: R$ 7.990,00)`;
+                select.appendChild(option);
+            }
+        }
+
+        function toggleParcelas(val) {
+            const container = document.getElementById('installmentContainer');
+            if (val.includes('Cartao') || val.includes('Cartão')) {
+                container.style.display = 'block';
+            } else {
+                container.style.display = 'none';
+            }
+        }
+
+        populateInstallments();
+
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('btnSubmit');
+            btn.disabled = true;
+            btn.innerText = 'ENVIANDO DADOS E CONECTANDO... ⏳';
+
+            const fileInput = document.getElementById('fotoDocumento');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Por favor, anexe a foto do documento.');
+                btn.disabled = false;
+                btn.innerText = 'FINALIZAR PEDIDO VIA WHATSAPP 📲';
+                return;
+            }
+
+            let formaPagamentoFinal = document.getElementById('pagamento').value;
+            if (formaPagamentoFinal.includes('Cartao') || formaPagamentoFinal.includes('Cartão')) {
+                const parcelaEscolhida = document.getElementById('opcaoParcela').value;
+                formaPagamentoFinal += ` (${parcelaEscolhida})`;
+            }
+
+            const nome = document.getElementById('nome').value;
+            const cpf = document.getElementById('cpf').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const cep = document.getElementById('cep').value;
+            const uf = document.getElementById('uf').value;
+            const endereco = document.getElementById('endereco').value;
+            const bairro = document.getElementById('bairro').value;
+            const cidade = document.getElementById('cidade').value;
+            const cor = document.getElementById('cor').value;
+
+            const mensagemPronta = `Olá! Acabei de fazer meu pedido da Scooter URBY X16 (1000W) pelo formulário:
+
+🛵 *Modelo:* URBY X16 1000W
+🎨 *Cor Escolhida:* ${cor}
+👤 *Nome:* ${nome}
+📄 *CPF:* ${cpf}
+📱 *WhatsApp:* ${whatsapp}
+📍 *Endereço:* ${endereco}, ${bairro} - ${cidade}/${uf} (CEP: ${cep})
+💳 *Pagamento:* ${formaPagamentoFinal}
+
+Segue em anexo a foto do meu documento para validação do pedido!`;
+
+            const numeroTelefone = "5553999595717"; 
+            const linkWhatsAppComTexto = `https://api.whatsapp.com/send?phone=${numeroTelefone}&text=${encodeURIComponent(mensagemPronta)}`;
+
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function() {
+                const payload = {
+                    modelo: "X16 1000W",
+                    nome: nome,
+                    cpf: cpf,
+                    whatsapp: whatsapp,
+                    cep: cep,
+                    uf: uf,
+                    endereco: endereco,
+                    bairro: bairro,
+                    cidade: cidade,
+                    cor: cor,
+                    pagamento: formaPagamentoFinal,
+                    fotoBase64: reader.result,
+                    nomeArquivo: file.name
+                };
+
+                fetch(scriptURL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                })
+                .then(() => { 
+                    window.location.href = linkWhatsAppComTexto; 
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    window.location.href = linkWhatsAppComTexto;
+                });
+            };
+        });
+    </script>
+</body>
+</html>
